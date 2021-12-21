@@ -12,6 +12,7 @@
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <Deterministic>true</Deterministic>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -57,29 +58,35 @@
           <SubType>Form</SubType>
         </Compile>
         <Compile Include="MusicForm.Designer.cs">
-          <DependentUpon>MusicForm.cs</DependentUpon>
+            <DependentUpon>MusicForm.cs</DependentUpon>
         </Compile>
         <Compile Include="NewTrackForm.cs">
-          <SubType>Form</SubType>
+            <SubType>Form</SubType>
         </Compile>
         <Compile Include="NewTrackForm.Designer.cs">
-          <DependentUpon>NewTrackForm.cs</DependentUpon>
+            <DependentUpon>NewTrackForm.cs</DependentUpon>
         </Compile>
-        <Compile Include="Program.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="MusicFormState.cs" />
-        <Compile Include="NewTrackFormState.cs" />
-        <Compile Include="track\Track.cs" />
-        <Compile Include="track\TrackDto.cs" />
-        <Compile Include="track\TracksState.cs" />
+        <Compile Include="Program.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="MusicFormState.cs"/>
+        <Compile Include="DialogState.cs"/>
+        <Compile Include="TrackEditingForm.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="TrackEditingForm.Designer.cs">
+            <DependentUpon>TrackEditingForm.cs</DependentUpon>
+        </Compile>
+        <Compile Include="track\Track.cs"/>
+        <Compile Include="track\TrackDto.cs"/>
+        <Compile Include="track\TracksState.cs"/>
         <EmbeddedResource Include="MainForm.resx">
-          <DependentUpon>MainForm.cs</DependentUpon>
+            <DependentUpon>MainForm.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="MusicForm.resx">
-          <DependentUpon>MusicForm.cs</DependentUpon>
+            <DependentUpon>MusicForm.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="NewTrackForm.resx">
-          <DependentUpon>NewTrackForm.cs</DependentUpon>
+            <DependentUpon>NewTrackForm.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
@@ -90,6 +97,9 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
+        <EmbeddedResource Include="TrackEditingForm.resx">
+            <DependentUpon>TrackEditingForm.cs</DependentUpon>
+        </EmbeddedResource>
         <None Include="Properties\Settings.settings">
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>

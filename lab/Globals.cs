@@ -1,5 +1,7 @@
-﻿namespace lab {
-public class Globals {
+﻿// ReSharper disable StringLiteralTypo
+
+namespace lab {
+public static class Globals {
     public static readonly string[] Genres = {
         "12-bar blues",
         "2 tone",

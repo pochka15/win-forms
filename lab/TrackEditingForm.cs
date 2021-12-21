@@ -3,9 +3,13 @@ using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace lab {
-public partial class NewTrackForm : Form {
-    public NewTrackForm() {
+public partial class TrackEditingForm : Form {
+    public TrackEditingForm(DialogState state) {
         InitializeComponent();
+        nameTextBox.Text = state.Name;
+        authorTextBox.Text = state.Author;
+        categoryTextBox.Text = state.Category;
+        dateTimePicker.Value = state.CreatedAt;
     }
 
     public DialogState State =>
@@ -16,7 +20,12 @@ public partial class NewTrackForm : Form {
             CreatedAt = Convert.ToDateTime(dateTimePicker.Text)
         };
 
-    private void NewTrackForm_Load(object sender, EventArgs e) {
+    private void nameTextBox_Validating(object sender, CancelEventArgs e) {
+        if (nameTextBox.Text != string.Empty) return;
+        HandleValidationFailed(nameTextBox, "Enter non-empty name", e);
+    }
+
+    private void TrackEditingForm_Load(object sender, EventArgs e) {
         submitButton.DialogResult = DialogResult.OK;
         validationLabel.Text = "";
 
@@ -27,16 +36,6 @@ public partial class NewTrackForm : Form {
         categoryTextBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
         categoryTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
     }
-
-    private void nameTextBox_Validating(object sender, CancelEventArgs e) {
-        if (nameTextBox.Text != string.Empty) return;
-        HandleValidationFailed(nameTextBox, "Enter non-empty name", e);
-    }
-
-    private void nameTextBox_Validated(object sender, EventArgs e) {
-        HandleValidationSucceeded(nameTextBox);
-    }
-
 
     private void HandleValidationFailed(Control control, string message, CancelEventArgs e) {
         e.Cancel = true;
@@ -49,7 +48,11 @@ public partial class NewTrackForm : Form {
         validationLabel.Text = "";
     }
 
-    private void NewTrackForm_Validating(object sender, CancelEventArgs e) {
+    private void nameTextBox_Validated(object sender, EventArgs e) {
+        HandleValidationSucceeded(nameTextBox);
+    }
+
+    private void TrackEditingForm_Validating(object sender, CancelEventArgs e) {
         ValidateChildren();
     }
 }

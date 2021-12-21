@@ -16,5 +16,14 @@ public class TrackDto {
         item.SubItems.Add(CreatedAt.ToShortDateString());
         return item;
     }
+
+    public DialogState ToDialogState() {
+        return new DialogState {
+            Name = Name,
+            Author = Author,
+            Category = Category,
+            CreatedAt = CreatedAt
+        };
+    }
 }
 }
