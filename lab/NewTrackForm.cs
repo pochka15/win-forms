@@ -36,7 +36,7 @@ public partial class NewTrackForm : Form {
     private void nameTextBox_Validated(object sender, EventArgs e) {
         HandleValidationSucceeded(nameTextBox);
     }
-    
+
 
     private void HandleValidationFailed(Control control, string message, CancelEventArgs e) {
         e.Cancel = true;

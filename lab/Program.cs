@@ -13,7 +13,7 @@ static class Program {
         SetProcessDPIAware();
         Application.Run(new MainForm());
     }
-    
+
     // ***also dllimport of that function***
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     private static extern bool SetProcessDPIAware();
