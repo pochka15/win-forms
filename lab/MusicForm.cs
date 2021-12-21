@@ -19,6 +19,16 @@ public partial class MusicForm : Form {
         _state.TrackAdded += AddTrack;
         _state.TrackUpdated += UpdateTrack;
         _state.TrackDeleted += DeleteTrack;
+        _state.AllTracksUpdated += ReloadTracks;
+    }
+
+    private void ReloadTracks() {
+        var i = 1;
+        var items = _state.Tracks
+            .Select(it => it.ToListViewItem(i++))
+            .ToArray();
+        tracksView.Items.Clear();
+        tracksView.Items.AddRange(items);
     }
 
     private void DeleteTrack(TrackDto dto) {
@@ -56,11 +66,10 @@ public partial class MusicForm : Form {
     }
 
     private void MusicForm_Load(object sender, EventArgs e) {
-        var i = 1;
-        var items = _state.Tracks
-            .Select(it => it.ToListViewItem(i++))
-            .ToArray();
-        tracksView.Items.AddRange(items);
+        ReloadTracks();
+
+        // ReSharper disable once CoVariantArrayConversion
+        filteringComboBox.Items.AddRange(FilterUtils.AllTypes());
     }
 
     private void tracksView_SelectedIndexChanged(object sender, EventArgs e) {
@@ -90,6 +99,10 @@ public partial class MusicForm : Form {
     private void deleteTrackToolStripMenuItem_Click(object sender, EventArgs e) {
         if (_state.SelectedTrack == null) return;
         _state.DeleteTrack(_state.SelectedTrack);
+    }
+
+    private void filteringComboBox_TextChanged(object sender, EventArgs e) {
+        _state.UpdateFilter(filteringComboBox.Text);
     }
 }
 }
