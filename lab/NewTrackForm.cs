@@ -6,27 +6,21 @@ namespace lab {
 public partial class NewTrackForm : Form {
     public NewTrackForm() {
         InitializeComponent();
+        CustomInitialize();
+    }
+
+    private void CustomInitialize() {
+        submitButton.DialogResult = DialogResult.OK;
+        validationLabel.Text = "";
     }
 
     public DialogState State =>
         new DialogState {
             Name = nameTextBox.Text,
             Author = authorTextBox.Text,
-            Category = categoryTextBox.Text,
+            Category = genreControl.Value,
             CreatedAt = Convert.ToDateTime(dateTimePicker.Text)
         };
-
-    private void NewTrackForm_Load(object sender, EventArgs e) {
-        submitButton.DialogResult = DialogResult.OK;
-        validationLabel.Text = "";
-
-        // categoryTextBox
-        var source = new AutoCompleteStringCollection();
-        source.AddRange(Globals.Genres);
-        categoryTextBox.AutoCompleteCustomSource = source;
-        categoryTextBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-        categoryTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
-    }
 
     private void nameTextBox_Validating(object sender, CancelEventArgs e) {
         if (nameTextBox.Text != string.Empty) return;
