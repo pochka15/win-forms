@@ -13,20 +13,28 @@ public class MusicFormState {
 
     public event Action? AllTracksUpdated;
 
-    public IEnumerable<TrackDto> Tracks => _tracks;
+    public IEnumerable<TrackDto> Tracks => FilterTracks();
+
+    private IEnumerable<TrackDto> FilterTracks() {
+        var year2000 = new DateTime(2000, 1, 1);
+        return _filter switch {
+            Filter.After2000 => _parentState.Tracks
+                .Where(it => it.CreatedAt > year2000),
+            Filter.Before2000 => _parentState.Tracks
+                .Where(it => it.CreatedAt < year2000),
+            _ => _parentState.Tracks
+        };
+    }
 
     public TrackDto? SelectedTrack { get; set; }
 
     private Filter _filter = Filter.All;
-
-    private List<TrackDto> _tracks;
 
     public MusicFormState(TracksState parentState) {
         _parentState = parentState;
         _parentState.TrackAdded += track => TrackAdded?.Invoke(track);
         _parentState.TrackDeleted += track => TrackDeleted?.Invoke(track);
         _parentState.TrackUpdated += (prev, next) => TrackUpdated?.Invoke(prev, next);
-        _tracks = _parentState.Tracks.ToList();
     }
 
     public void UpdateTrack(TrackDto prev, TrackDto next) {
@@ -41,18 +49,6 @@ public class MusicFormState {
         var newOne = FilterUtils.Parse(name);
         if (newOne == _filter) return;
         _filter = newOne;
-
-        // Effect
-        var year2000 = new DateTime(2000, 1, 1);
-        _tracks = name switch {
-            FilterUtils.After2000 => _parentState.Tracks
-                .Where(it => it.CreatedAt > year2000)
-                .ToList(),
-            FilterUtils.Before2000 => _parentState.Tracks
-                .Where(it => it.CreatedAt < year2000)
-                .ToList(),
-            _ => _parentState.Tracks.ToList()
-        };
         AllTracksUpdated!.Invoke();
     }
 }

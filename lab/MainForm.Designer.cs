@@ -24,21 +24,12 @@ partial class MainForm {
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
-        this.bottomStatusBar = new System.Windows.Forms.StatusBar();
         this.upperMenuStrip = new System.Windows.Forms.MenuStrip();
         this.addTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.addFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.bottomStatusStrip = new System.Windows.Forms.StatusStrip();
         this.upperMenuStrip.SuspendLayout();
         this.SuspendLayout();
-        // 
-        // bottomStatusBar
-        // 
-        this.bottomStatusBar.Location = new System.Drawing.Point(0, 991);
-        this.bottomStatusBar.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-        this.bottomStatusBar.Name = "bottomStatusBar";
-        this.bottomStatusBar.Size = new System.Drawing.Size(989, 43);
-        this.bottomStatusBar.TabIndex = 5;
-        this.bottomStatusBar.Text = "Status";
         // 
         // upperMenuStrip
         // 
@@ -65,13 +56,21 @@ partial class MainForm {
         this.addFormToolStripMenuItem.Text = "Add tracks form";
         this.addFormToolStripMenuItem.Click += new System.EventHandler(this.addFormToolStripMenuItem_Click);
         // 
+        // bottomStatusStrip
+        // 
+        this.bottomStatusStrip.Location = new System.Drawing.Point(0, 1012);
+        this.bottomStatusStrip.Name = "bottomStatusStrip";
+        this.bottomStatusStrip.Size = new System.Drawing.Size(989, 22);
+        this.bottomStatusStrip.TabIndex = 9;
+        this.bottomStatusStrip.Text = "statusStrip1";
+        // 
         // MainForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 31F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.BackColor = System.Drawing.SystemColors.ControlLight;
         this.ClientSize = new System.Drawing.Size(989, 1034);
-        this.Controls.Add(this.bottomStatusBar);
+        this.Controls.Add(this.bottomStatusStrip);
         this.Controls.Add(this.upperMenuStrip);
         this.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
         this.IsMdiContainer = true;
@@ -87,12 +86,14 @@ partial class MainForm {
         this.PerformLayout();
     }
 
+    private System.Windows.Forms.StatusStrip bottomStatusStrip;
+
+    private System.Windows.Forms.StatusStrip statusStrip1;
+
     private System.Windows.Forms.ToolStripMenuItem addFormToolStripMenuItem;
 
     private System.Windows.Forms.MenuStrip upperMenuStrip;
     private System.Windows.Forms.ToolStripMenuItem addTrackToolStripMenuItem;
-
-    private System.Windows.Forms.StatusBar bottomStatusBar;
 
     #endregion
 }

@@ -6,20 +6,30 @@ using lab.track;
 
 namespace lab {
 public partial class MusicForm : Form {
-    public int Id { get; }
-
     public ToolStrip UpperMenuStrip => upperMenuStrip;
+    public ToolStrip BottomStatusStrip => bottomStatusStrip;
 
     private readonly MusicFormState _state;
+    private readonly int _id;
 
     public MusicForm(TracksState tracksState, int id = 0) {
-        Id = id;
+        _id = id;
         InitializeComponent();
+        Activated += (sender, args) => UpdateStatusText();
         _state = new MusicFormState(tracksState);
         _state.TrackAdded += AddTrack;
         _state.TrackUpdated += UpdateTrack;
         _state.TrackDeleted += DeleteTrack;
         _state.AllTracksUpdated += ReloadTracks;
+
+        // Update status
+        _state.TrackAdded += a => UpdateStatusText();
+        _state.TrackDeleted += a => UpdateStatusText();
+        _state.AllTracksUpdated += UpdateStatusText;
+    }
+
+    private void UpdateStatusText() {
+        statusLabel.Text = $"Form {_id}, elements: {_state.Tracks.Count()}";
     }
 
     private void ReloadTracks() {

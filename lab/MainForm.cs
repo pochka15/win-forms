@@ -31,7 +31,7 @@ public partial class MainForm : Form {
         _childCounter += 1;
         var form = new MusicForm(_tracksState, _childCounter) {MdiParent = this};
         form.Activated += (o, args) => HandleFormActivated(form);
-        form.Deactivate += (o, args) => UnmergeMenus(form);
+        form.Deactivate += (o, args) => UnmergeStrips(form);
         form.Closed += (o, args) => HandleChildClosed();
         form.Show();
         UpdateChildControlBoxes();
@@ -48,18 +48,19 @@ public partial class MainForm : Form {
     }
 
 
-    private void UnmergeMenus(MusicForm target) {
+    private void UnmergeStrips(MusicForm target) {
         ToolStripManager.RevertMerge(upperMenuStrip, target.UpperMenuStrip);
+        ToolStripManager.Merge(bottomStatusStrip, target.BottomStatusStrip);
     }
 
-    private void MergeMenus(MusicForm source) {
+    private void MergeStrips(MusicForm source) {
         ToolStripManager.Merge(source.UpperMenuStrip, upperMenuStrip);
+        ToolStripManager.Merge(source.BottomStatusStrip, bottomStatusStrip);
     }
 
     private void HandleFormActivated(MusicForm form) {
         // ReSharper disable once LocalizableElement
-        bottomStatusBar.Text = $"Form {form.Id}";
-        MergeMenus(form);
+        MergeStrips(form);
         UpdateChildControlBoxes();
     }
 
