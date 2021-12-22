@@ -25,5 +25,14 @@ public class TrackDto {
             CreatedAt = CreatedAt
         };
     }
+
+    public Track ToModel() {
+        return new Track {
+            Name = Name,
+            Author = Author,
+            Category = Category,
+            CreatedAt = CreatedAt
+        };
+    }
 }
 }

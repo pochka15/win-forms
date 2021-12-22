@@ -32,9 +32,32 @@ public class MusicFormState {
 
     public MusicFormState(TracksState parentState) {
         _parentState = parentState;
-        _parentState.TrackAdded += track => TrackAdded?.Invoke(track);
-        _parentState.TrackDeleted += track => TrackDeleted?.Invoke(track);
-        _parentState.TrackUpdated += (prev, next) => TrackUpdated?.Invoke(prev, next);
+        _parentState.TrackAdded += HandleTrackAdded;
+        _parentState.TrackDeleted += HandleTrackDeleted;
+        _parentState.TrackUpdated += HandleTrackUpdated;
+    }
+
+    private void HandleTrackDeleted(TrackDto track) {
+        if (ApplyFilter(track)) TrackDeleted?.Invoke(track);
+    }
+
+    private void HandleTrackAdded(TrackDto track) {
+        if (ApplyFilter(track)) TrackAdded?.Invoke(track);
+    }
+
+    private void HandleTrackUpdated(TrackDto prev, TrackDto next) {
+        if (ApplyFilter(next)) TrackUpdated?.Invoke(prev, next);
+        else TrackDeleted?.Invoke(prev);
+    }
+
+    private bool ApplyFilter(TrackDto dto) {
+        var year2000 = new DateTime(2000, 1, 1);
+        var track = dto.ToModel();
+        return _filter switch {
+            Filter.After2000 => track.CreatedAt > year2000,
+            Filter.Before2000 => track.CreatedAt < year2000,
+            _ => true
+        };
     }
 
     public void UpdateTrack(TrackDto prev, TrackDto next) {
