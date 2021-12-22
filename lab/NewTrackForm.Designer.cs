@@ -167,16 +167,17 @@ partial class NewTrackForm {
         // 
         // genreControl
         // 
-        this.genreControl.BackColor = System.Drawing.Color.AliceBlue;
+        this.genreControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+        this.genreControl.Dock = System.Windows.Forms.DockStyle.Left;
         this.genreControl.Location = new System.Drawing.Point(263, 255);
         this.genreControl.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
         this.genreControl.Name = "genreControl";
         this.genreControl.PopImage = ((System.Drawing.Image) (resources.GetObject("genreControl.PopImage")));
         this.genreControl.RapImage = ((System.Drawing.Image) (resources.GetObject("genreControl.RapImage")));
         this.genreControl.RockImage = ((System.Drawing.Image) (resources.GetObject("genreControl.RockImage")));
-        this.genreControl.Size = new System.Drawing.Size(262, 246);
+        this.genreControl.Size = new System.Drawing.Size(252, 246);
         this.genreControl.TabIndex = 11;
-        this.genreControl.Value = "rap";
+        this.genreControl.Value = "rock";
         // 
         // errorProvider
         // 

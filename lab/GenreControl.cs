@@ -9,7 +9,7 @@ public partial class GenreControl : UserControl {
         get => GenreUtils.ConvertToString(_genre);
         set {
             _genre = GenreUtils.Parse(value);
-            ValueChanged?.Invoke(GenreUtils.ConvertToString(_genre));
+            ValueChanged?.Invoke(_genre);
         }
     }
 
@@ -22,7 +22,7 @@ public partial class GenreControl : UserControl {
     // ReSharper disable once MemberCanBePrivate.Global
     public Image RockImage { get; set; }
 
-    public event Action<string> ValueChanged;
+    public event Action<Genre> ValueChanged;
 
     private Genre _genre;
 
